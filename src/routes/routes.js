@@ -9,9 +9,9 @@ router.post('/usuarios', UsuariosController.cadastrarUsuarios);
 router.patch('/usuarios', UsuariosController.editarUsuarios); 
 router.delete('/usuarios', UsuariosController.apagarUsuarios); 
 
-router.get('/usuarios', CategoriaController.listarCategoria); 
-router.post('/usuarios', CategoriaController.cadastrarCategoria); 
-router.patch('/usuarios', CategoriaController.editarCategoria); 
-router.delete('/usuarios', CategoriaController.apagarCategoria); 
+router.get('/categoria', CategoriaController.listarCategoria); 
+router.post('/categoria', CategoriaController.cadastrarCategoria); 
+router.patch('/categoria', CategoriaController.editarCategoria); 
+router.delete('/categoria', CategoriaController.apagarCategoria); 
 
 module.exports = router;
