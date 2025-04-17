@@ -3,10 +3,19 @@ const db = require('../database/connection');
 module.exports = {
     async listarCategoria(request, response) {
         try {
+
+            const sql = `
+                SELECT cat_id, cat_nome FROM CATEGORIA;
+            `;
+            
+            const [rows] = await db.query(sql);
+            const nResgistros = rows.length;
+
             return response.status(200).json({
                 sucesso: true, 
                 mensagem: 'Lista de categorias', 
-                dados: null
+                nResgistros,
+                dados: rows
             });
         } catch (error) {
             return response.status(500).json({
