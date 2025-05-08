@@ -3,7 +3,6 @@ const db = require('../database/connection');
 module.exports = {
     async listarCategoria(request, response) {
         try {
-
             const sql = `
                 SELECT cat_id, cat_nome FROM CATEGORIA;
             `;
@@ -27,10 +26,25 @@ module.exports = {
     }, 
     async cadastrarCategoria(request, response) {
         try {
+            const { cat_nome } = request.body;
+            const sql = `
+            INSERT INTO USUARIOS 
+              (cat_nome) 
+            VALUES
+              (?);
+            `;
+
+            const values = [cat_nome];
+            const [result] = await db.query(sql, values);
+
+            const dados = {
+                cat_id: result.insertId,
+                cat_nome
+            };
             return response.status(200).json({
                 sucesso: true, 
                 mensagem: 'Cadastro de categoria', 
-                dados: null
+                dados: dados
             });
         } catch (error) {
             return response.status(500).json({
