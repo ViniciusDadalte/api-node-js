@@ -28,7 +28,7 @@ module.exports = {
         try {
             const { cat_nome } = request.body;
             const sql = `
-            INSERT INTO USUARIOS 
+            INSERT INTO CATEGORIA 
               (cat_nome) 
             VALUES
               (?);
