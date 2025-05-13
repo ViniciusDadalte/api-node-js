@@ -56,10 +56,34 @@ module.exports = {
     }, 
     async editarCategoria(request, response) {
         try {
+            const { cat_nome } = request.body;
+            const { id } = request.params;
+            const sql = `
+            UPDATE CATEGORIA SET
+               cat_nome = ? 
+            WHERE
+               cat_id = ?; 
+            `;
+            
+            const values = [ cat_nome, id ]; 
+            const [result] = await db.query(sql, values); 
+            if (result.affectedRows === 0) {
+                return response.status(404).json({
+                    sucesso: false, 
+                    mensagem: `Categoria ${id} não encontrada.`, 
+                    dados: null
+                });
+            }
+
+            const dados = {
+                id,
+                cat_nome
+            };
+
             return response.status(200).json({
                 sucesso: true, 
                 mensagem: 'Alteração na categoria', 
-                dados: null
+                dados: dados
             });
         } catch (error) {
             return response.status(500).json({
@@ -71,9 +95,22 @@ module.exports = {
     }, 
     async apagarCategoria(request, response) {
         try {
+            const { id } = request.params;
+            const sql = `DELETE FROM categoria WHERE cat_id = ?;`;
+            const values = [id];
+            const [result] = await db.query(sql, values);
+
+            if (result.affectedRows === 0) {
+                return response.status(404).json({
+                    sucesso: false,
+                    mensagem: `Categoria ${id} não encontrada.`,
+                    dados: null
+                });
+            }
+
             return response.status(200).json({
                 sucesso: true, 
-                mensagem: 'Exclusão da categoria', 
+                mensagem: `Categoria ${id} excluída com sucesso!`,	 
                 dados: null
             });
         } catch (error) {
