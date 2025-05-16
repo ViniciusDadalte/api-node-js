@@ -1,17 +1,8 @@
 const express = require('express'); 
 const router = express.Router(); 
 
-const UsuariosController = require('../controllers/usuarios');
-const CategoriaController = require('../controllers/categoria');  
+const RoutesVinicius = require('./RoutesVinicius.js');
 
-router.get('/usuarios', UsuariosController.listarUsuarios); 
-router.post('/usuarios', UsuariosController.cadastrarUsuarios); 
-router.patch('/usuarios/:id', UsuariosController.editarUsuarios); 
-router.delete('/usuarios/:id', UsuariosController.apagarUsuarios); 
-
-router.get('/categoria', CategoriaController.listarCategoria); 
-router.post('/categoria', CategoriaController.cadastrarCategoria); 
-router.patch('/categoria/:id', CategoriaController.editarCategoria); 
-router.delete('/categoria/:id', CategoriaController.apagarCategoria); 
+router.use('/', RoutesVinicius);
 
 module.exports = router;
